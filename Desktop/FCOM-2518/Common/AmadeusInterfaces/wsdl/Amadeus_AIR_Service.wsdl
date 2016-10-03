@@ -1,0 +1,108 @@
+<wsdl:definitions targetNamespace="http://xml.amadeus.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:aws="http://xml.amadeus.com" xmlns:command_cryptic_7_3="http://xml.amadeus.com/HSFREQ_07_3_1A" xmlns:command_crypticreply_7_3="http://xml.amadeus.com/HSFRES_07_3_1A" xmlns:security_signout_4_1="http://xml.amadeus.com/VLSSOQ_04_1_1A" xmlns:security_signoutreply_4_1="http://xml.amadeus.com/VLSSOR_04_1_1A" xmlns:pnr_addmultielements_10_1="http://xml.amadeus.com/PNRADD_10_1_1A" xmlns:pnr_reply_10_1="http://xml.amadeus.com/PNRACC_10_1_1A" xmlns:fare_pricepnrwithlowerfares_7_3="http://xml.amadeus.com/TPLFRQ_07_3_1A" xmlns:fare_pricepnrwithlowerfaresreply_7_3="http://xml.amadeus.com/TPLFRR_07_3_1A" xmlns:fare_convertcurrency_8_1="http://xml.amadeus.com/FCUQCQ_08_1_1A" xmlns:fare_convertcurrencyreply_8_1="http://xml.amadeus.com/FCUQCR_08_1_1A" xmlns:air_multiavailability_7_1="http://xml.amadeus.com/SATRQT_07_1_1A" xmlns:air_multiavailabilityreply_7_1="http://xml.amadeus.com/SATRSP_07_1_1A" xmlns:ticket_updatetsmp_9_1="http://xml.amadeus.com/TTSMUQ_09_1_1A" xmlns:ticket_updatetsmpreply_9_1="http://xml.amadeus.com/TTSMUR_09_1_1A" xmlns:pnr_commit_4_2="http://xml.amadeus.com/PEOTUQ_04_2_1A" xmlns:pnr_commitreply_4_2="http://xml.amadeus.com/PEOTUR_04_2_1A" xmlns:pnr_retrievebyrecloc_10_1="http://xml.amadeus.com/PRETRQ_10_1_1A" xmlns:pnr_retrievebyreclocreply_10_1="http://xml.amadeus.com/PRETRR_10_1_1A" xmlns:fare_pricepnrwithbookingclass_7_3="http://xml.amadeus.com/TPCBRQ_07_3_1A" xmlns:fare_pricepnrwithbookingclassreply_7_3="http://xml.amadeus.com/TPCBRR_07_3_1A" xmlns:fare_informativepricingwithoutpnr_8_1="http://xml.amadeus.com/TIPNRQ_08_1_1A" xmlns:fare_informativepricingwithoutpnrreply_8_1="http://xml.amadeus.com/TIPNRR_08_1_1A" xmlns:pnr_cancel_10_1="http://xml.amadeus.com/PNRXCL_10_1_1A" xmlns:air_flightinfo_7_1="http://xml.amadeus.com/FLIREQ_07_1_1A" xmlns:air_flightinforeply_7_1="http://xml.amadeus.com/FLIRES_07_1_1A" xmlns:ticket_createmanualtst_7_1="http://xml.amadeus.com/TMATCQ_07_1_1A" xmlns:ticket_createmanualtstreply_7_1="http://xml.amadeus.com/TMATCR_07_1_1A" xmlns:pnr_createauxiliarysegment_9_1="http://xml.amadeus.com/PAUXCQ_09_1_1A" xmlns:pnr_createauxiliarysegmentreply_9_1="http://xml.amadeus.com/PAUXCR_09_1_1A" xmlns:docissuance_issueticket_9_1="http://xml.amadeus.com/TTKTIQ_09_1_1A" xmlns:docissuance_issueticketreply_9_1="http://xml.amadeus.com/TTKTIR_09_1_1A" xmlns:ticket_displaytsmp_9_1="http://xml.amadeus.com/TTSMRQ_09_1_1A" xmlns:ticket_displaytsmpreply_9_1="http://xml.amadeus.com/TTSMRR_09_1_1A" xmlns:docissuance_issuemiscellaneousdocuments_9_2="http://xml.amadeus.com/TMDSIQ_09_2_1A" xmlns:docissuance_issuemiscellaneousdocumentsreply_9_2="http://xml.amadeus.com/TMDSIR_09_2_1A" xmlns:pnr_changeairsegmentstatus_6_3="http://xml.amadeus.com/ITAREQ_06_3_1A" xmlns:pnr_changeairsegmentstatusreply_6_3="http://xml.amadeus.com/ITARES_06_3_1A" xmlns:ticket_displaytst_7_1="http://xml.amadeus.com/TTSTRQ_07_1_1A" xmlns:ticket_displaytstreply_7_1="http://xml.amadeus.com/TTSTRR_07_1_1A" xmlns:pnr_retrieve_10_1="http://xml.amadeus.com/PNRRET_10_1_1A" xmlns:pnr_list_0_1="http://xml.amadeus.com/TNLRES_00_1_1A" xmlns:pnr_split_10_1="http://xml.amadeus.com/PNRSPL_10_1_1A" xmlns:ticket_createmanualtsmp_9_1="http://xml.amadeus.com/TTSMCQ_09_1_1A" xmlns:ticket_createmanualtsmpreply_9_1="http://xml.amadeus.com/TTSMCR_09_1_1A" xmlns:pnr_ignore_4_1="http://xml.amadeus.com/CLTREQ_04_1_IA" xmlns:pnr_ignorereply_4_1="http://xml.amadeus.com/CLTRES_04_1_IA" xmlns:ticket_updatetst_8_1="http://xml.amadeus.com/TTSTUQ_08_1_1A" xmlns:ticket_updatetstreply_8_1="http://xml.amadeus.com/TTSTUR_08_1_1A" xmlns:ticket_createtsmfareelement_10_1="http://xml.amadeus.com/TFRECQ_10_1_1A" xmlns:ticket_createtsmfareelementreply_10_1="http://xml.amadeus.com/TFRECR_10_1_1A" xmlns:air_rebookairsegment_3_2="http://xml.amadeus.com/ARBKUQ_03_2_1A" xmlns:air_rebookairsegmentreply_3_2="http://xml.amadeus.com/ARBKUR_03_2_1A" xmlns:ticket_createtsmfrompricing_9_1="http://xml.amadeus.com/TAUSCQ_09_1_1A" xmlns:ticket_createtsmfrompricingreply_9_1="http://xml.amadeus.com/TAUSCR_09_1_1A" xmlns:queue_placepnr_3_1="http://xml.amadeus.com/QUQPCQ_03_1_1A" xmlns:queue_placepnrreply_3_1="http://xml.amadeus.com/QUQPCR_03_1_1A" xmlns:security_authenticate_6_1="http://xml.amadeus.com/VLSSLQ_06_1_1A" xmlns:security_authenticatereply_6_1="http://xml.amadeus.com/VLSSLR_06_1_1A" xmlns:pnr_displayhistory_6_1="http://xml.amadeus.com/PHIDRQ_06_1_1A" xmlns:pnr_displayhistoryreply_6_1="http://xml.amadeus.com/PHIDRR_06_1_1A">  
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://xml.amadeus.com">
+      <xsd:import namespace="http://xml.amadeus.com/ws/2009/01/WBS_Session-2.0.xsd" schemaLocation="common/WBS_Session-2.0.xsd"/>
+      
+      <xsd:import namespace="http://xml.amadeus.com/SATRQT_07_1_1A" schemaLocation="air/Air_MultiAvailability_07_1_1A.xsd"/>
+      <xsd:import namespace="http://xml.amadeus.com/SATRSP_07_1_1A" schemaLocation="air/Air_MultiAvailabilityReply_07_1_1A.xsd"/>
+      
+      <xsd:import namespace="http://xml.amadeus.com/FLIREQ_07_1_1A" schemaLocation="air/Air_FlightInfo_07_1_1A.xsd"/>
+      <xsd:import namespace="http://xml.amadeus.com/FLIRES_07_1_1A" schemaLocation="air/Air_FlightInfoReply_07_1_1A.xsd"/>
+     
+      <xsd:import namespace="http://xml.amadeus.com/ARBKUQ_03_2_1A" schemaLocation="air/Air_RebookAirSegment_03_2_1A.xsd"/>
+      <xsd:import namespace="http://xml.amadeus.com/ARBKUR_03_2_1A" schemaLocation="air/Air_RebookAirSegmentReply_03_2_1A.xsd"/>
+     
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Session" xmlns:ns0="http://xml.amadeus.com/ws/2009/01/WBS_Session-2.0.xsd">
+    <wsdl:part name="Session" element="ns0:Session"/>
+  </wsdl:message>
+  
+  <wsdl:message name="Air_MultiAvailability_7_1">
+    <wsdl:part name="Air_MultiAvailability_7_1" element="air_multiavailability_7_1:Air_MultiAvailability_Custom"/>
+  </wsdl:message>
+  <wsdl:message name="Air_MultiAvailabilityReply_7_1">
+    <wsdl:part name="Air_MultiAvailabilityReply_7_1" element="air_multiavailabilityreply_7_1:Air_MultiAvailabilityReply_Custom"/>
+  </wsdl:message>
+  
+ 
+  <wsdl:message name="Air_FlightInfo_7_1">
+    <wsdl:part name="Air_FlightInfo_7_1" element="air_flightinfo_7_1:Air_FlightInfo_Custom"/>
+  </wsdl:message>
+  <wsdl:message name="Air_FlightInfoReply_7_1">
+    <wsdl:part name="Air_FlightInfoReply_7_1" element="air_flightinforeply_7_1:Air_FlightInfoReply_Custom"/>
+  </wsdl:message>
+ 
+   <wsdl:message name="Air_RebookAirSegment_3_2">
+    <wsdl:part name="Air_RebookAirSegment_3_2" element="air_rebookairsegment_3_2:Air_RebookAirSegment_Custom"/>
+  </wsdl:message>
+  <wsdl:message name="Air_RebookAirSegmentReply_3_2">
+    <wsdl:part name="Air_RebookAirSegmentReply_3_2" element="air_rebookairsegmentreply_3_2:Air_RebookAirSegmentReply_Custom"/>
+  </wsdl:message>
+  
+ 
+ 
+  <wsdl:portType name="AmadeusWebServicesPT">
+    
+    <wsdl:operation name="Air_MultiAvailability">
+      <wsdl:input message="aws:Air_MultiAvailability_7_1"/>
+      <wsdl:output message="aws:Air_MultiAvailabilityReply_7_1"/>
+    </wsdl:operation>
+    
+   
+    <wsdl:operation name="Air_FlightInfo">
+      <wsdl:input message="aws:Air_FlightInfo_7_1"/>
+      <wsdl:output message="aws:Air_FlightInfoReply_7_1"/>
+    </wsdl:operation>
+    
+     
+    <wsdl:operation name="Air_RebookAirSegment">
+      <wsdl:input message="aws:Air_RebookAirSegment_3_2"/>
+      <wsdl:output message="aws:Air_RebookAirSegmentReply_3_2"/>
+    </wsdl:operation>
+   
+  </wsdl:portType>
+  <wsdl:binding name="AmadeusWebServicesBinding" type="aws:AmadeusWebServicesPT">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Air_MultiAvailability">
+      <soap:operation soapAction="http://webservices.amadeus.com/1ASIWASPAY/SATRQT_07_1_1A"/>
+      <wsdl:input>
+        <soap:header message="aws:Session" part="Session" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="aws:Session" part="Session" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+    <wsdl:operation name="Air_FlightInfo">
+      <soap:operation soapAction="http://webservices.amadeus.com/1ASIWASPAY/FLIREQ_07_1_1A"/>
+      <wsdl:input>
+        <soap:header message="aws:Session" part="Session" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="aws:Session" part="Session" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Air_RebookAirSegment">
+      <soap:operation soapAction="http://webservices.amadeus.com/1ASIWASPAY/ARBKUQ_03_2_1A"/>
+      <wsdl:input>
+        <soap:header message="aws:Session" part="Session" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="aws:Session" part="Session" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+   
+     </wsdl:binding>
+  <wsdl:service name="AmadeusWebServices">
+    <wsdl:port name="AmadeusWebServicesPort" binding="aws:AmadeusWebServicesBinding">
+      <soap:address location="http://test.webservices.1a.amadeus.net"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

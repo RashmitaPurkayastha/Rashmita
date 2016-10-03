@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>FinnairMW</artifactId>
+		<groupId>com.finnair.mw.finnairmw</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.finnair.mw.finnairmw</groupId>
+	<artifactId>Common</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Common</name>
+	<properties>
+		<oracle-home>C:\Oracle\Middleware</oracle-home>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+		<!--
+			<dependency> <groupId>commons-io</groupId> <artifactId>commons-io</artifactId> <version>1.4</version>
+			</dependency> <dependency> <groupId>org.springframework</groupId> <artifactId>spring-core</artifactId>
+			<version>2.5.6</version> </dependency> <dependency> <groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId> <version>2.5.6</version> </dependency> <dependency>
+			<groupId>org.springframework</groupId> <artifactId>spring-mock</artifactId> <version>2.0.8</version>
+			</dependency>
+		-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>weblogic</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.2.0.0</version>
+			<scope>system</scope>
+			<systemPath>${oracle-home}\modules\com.bea.core.xml.xmlbeans_2.2.0.0.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>weblogic</groupId>
+			<artifactId>weblogic_jar</artifactId>
+			<version>11g</version>
+			<scope>system</scope>
+			<systemPath>${oracle-home}\wlserver_10.3\server\lib\weblogic.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.5.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>weblogic</groupId>
+			<artifactId>weblogic_jms_client</artifactId>
+			<scope>system</scope>
+			<version>11g</version>
+			<systemPath>${oracle-home}\wlserver_10.3\server\lib\wljmsclient.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>apache-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.2</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.6</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+		
+	
+
+
+<!--			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<ant antfile="./build.xml" target="export" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>-->
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>osb</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<configuration>
+									<target>
+										<property name="workspace.dir">${basedir}/..</property>
+										<ant antfile="./build.xml" target="export" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

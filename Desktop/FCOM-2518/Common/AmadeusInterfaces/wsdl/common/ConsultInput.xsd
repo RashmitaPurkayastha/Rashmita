@@ -1,0 +1,55 @@
+<!-- edited with XML Spy v4.0.1 U (http://www.xmlspy.com) by AMADEUS (AMADEUS SAS) --><xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="common.xsd"/>
+	<xsd:element name="ConsultInput">
+		<xsd:annotation>
+			<xsd:documentation source="comment">Request for parameters  consultation</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="TRANSACTION_ID" type="xsd:string" fixed="Consult">
+					<xsd:annotation>
+						<xsd:documentation>Consultation Request</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="SITE" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation source="comment">Site Code </xsd:documentation>
+						<xsd:documentation source="format">AN3</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="LANGUAGE" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation source="comment">Language Code</xsd:documentation>
+						<xsd:documentation source="format">AN2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PARAMETER" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation source="comment">Name of a parameter to retrieve.</xsd:documentation>
+						<xsd:documentation source="format">AN</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="LIST" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation source="comment">Name of a globalist to retrieve.</xsd:documentation>
+						<xsd:documentation source="format">AN</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ERROR" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation source="comment">ID of an error to retrieve.</xsd:documentation>
+						<xsd:documentation source="format">AN</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="RESOURCE" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation source="comment">ID of a resource to retrieve.</xsd:documentation>
+						<xsd:documentation source="format">AN</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:group ref="CommonInputGroup"/>
+			</xsd:sequence>
+			<xsd:anyAttribute namespace="##any" processContents="lax"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

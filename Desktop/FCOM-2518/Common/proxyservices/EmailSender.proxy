@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con4="http://www.bea.com/wli/sb/stages/alert/config">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="Text"/>
+      <con:response type="Text"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/Common/proxyservices/EmailSender</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-2271501375083820258--4f3a4bce.142d665357a.-7d5b">
+    <con:pipeline type="request" name="EmailSender pipeline_request">
+      <con:stage name="Validate request">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="queryString">
+            <con2:id>_ActionId-7782071984824735169-5e731453.142e125c763.-7f2b</con2:id>
+            <con1:expr>
+              <con2:xqueryText>data($body)</con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:ifThenElse xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7e32</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText>fn:string-length($queryString) = 0</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7e31</con2:id>
+                  <con1:errCode>400</con1:errCode>
+                  <con1:message>Bad Request</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+      <con:stage name="Send email">
+        <con:context/>
+        <con:actions>
+          <con1:wsCallout>
+            <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7f22</con2:id>
+            <con1:service xsi:type="ref:BusinessServiceRef" ref="Common/businessservices/EMailServlet" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:request>
+              <con1:payload wrapped="true">$emailServletRQ</con1:payload>
+            </con1:request>
+            <con1:response>
+              <con1:payload wrapped="true">emailServletRS</con1:payload>
+            </con1:response>
+            <con1:requestTransform>
+              <con6:insert varName="outbound" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con5="http://www.bea.com/wli/sb/pipeline/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:file="http://www.bea.com/wli/sb/transports/file" xmlns:aler="http://www.bea.com/wli/monitoring/alert" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7ee5</con2:id>
+                <con6:location>
+                  <con2:xpathText>./ctx:transport/ctx:request</con2:xpathText>
+                </con6:location>
+                <con6:where>first-child</con6:where>
+                <con6:expr>
+                  <con2:xqueryText>&lt;http:http-method>POST&lt;/http:http-method></con2:xqueryText>
+                </con6:expr>
+              </con6:insert>
+              <con6:transport-headers xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con5="http://www.bea.com/wli/sb/pipeline/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:file="http://www.bea.com/wli/sb/transports/file" xmlns:aler="http://www.bea.com/wli/monitoring/alert" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7ee3</con2:id>
+                <con6:header-set>outbound-request</con6:header-set>
+                <con6:header name="Content-Type" value="expression">
+                  <con2:xqueryText>"application/x-www-form-urlencoded"</con2:xqueryText>
+                </con6:header>
+              </con6:transport-headers>
+              <con6:assign varName="emailServletRQ" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con5="http://www.bea.com/wli/sb/pipeline/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:file="http://www.bea.com/wli/sb/transports/file" xmlns:aler="http://www.bea.com/wli/monitoring/alert" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7ee1</con2:id>
+                <con6:expr>
+                  <con2:xqueryText>fn-bea:inlinedXML(
+concat(
+'&lt;soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" >&lt;![CDATA[',
+$queryString,
+']]&gt;&lt;/soapenv:Body>'
+))</con2:xqueryText>
+                </con6:expr>
+              </con6:assign>
+              <con1:log xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con5="http://www.bea.com/wli/sb/pipeline/config" xmlns:con4="http://www.bea.com/wli/sb/stages/publish/config" xmlns:file="http://www.bea.com/wli/sb/transports/file" xmlns:aler="http://www.bea.com/wli/monitoring/alert" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config">
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7e36</con2:id>
+                <con1:logLevel>debug</con1:logLevel>
+                <con1:expr>
+                  <con2:xqueryText>$emailServletRQ</con2:xqueryText>
+                </con1:expr>
+                <con1:message>Logging email servlet request</con1:message>
+              </con1:log>
+            </con1:requestTransform>
+            <con1:responseTransform>
+              <con3:log>
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7db9</con2:id>
+                <con3:logLevel>debug</con3:logLevel>
+                <con3:expr>
+                  <con2:xqueryText>$emailServletRS</con2:xqueryText>
+                </con3:expr>
+                <con3:message>Logging email servlet response</con3:message>
+              </con3:log>
+            </con1:responseTransform>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="EmailSender pipeline_response">
+      <con:stage name="EmailSender response">
+        <con:context/>
+        <con:actions>
+          <con1:ifThenElse>
+            <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7d99</con2:id>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText>fn:matches(data($emailServletRS), "^([0-9]+) e-mails sent successfully.$")</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con2:reply>
+                  <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7d7d</con2:id>
+                </con2:reply>
+              </con1:actions>
+            </con1:case>
+            <con1:case>
+              <con1:condition>
+                <con2:xqueryText>data($emailServletRS) = "No recipients" or 
+data($emailServletRS) = "Malformed sender address." or
+data($emailServletRS) = "No template key" or
+data($emailServletRS) = "No template found" or
+data($emailServletRS) = "No subject."</con2:xqueryText>
+              </con1:condition>
+              <con1:actions>
+                <con1:Error>
+                  <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7cea</con2:id>
+                  <con1:errCode>400</con1:errCode>
+                  <con1:message>Bad Request</con1:message>
+                </con1:Error>
+              </con1:actions>
+            </con1:case>
+            <con1:default>
+              <con4:alert>
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7cc8</con2:id>
+                <con4:destination ref="Common/alerts/EmailSenderAlert"/>
+                <con4:description>EmailServlet sending failed</con4:description>
+                <con4:severity>critical</con4:severity>
+                <con4:payload>
+                  <con2:xqueryText>fn:concat("Failed to send email with query string: ", 
+data($inbound/ctx:transport/ctx:request/http:query-string))</con2:xqueryText>
+                </con4:payload>
+              </con4:alert>
+              <con1:Error>
+                <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7cae</con2:id>
+                <con1:errCode>500</con1:errCode>
+                <con1:message>Internal error</con1:message>
+              </con1:Error>
+            </con1:default>
+          </con1:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-2271501375083820258--4f3a4bce.142d665357a.-7d5b">
+      <con:stage name="EmailSender error handling">
+        <con:context/>
+        <con:actions>
+          <con1:replace contents-only="true" varName="body">
+            <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7d13</con2:id>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText>fn:concat("Error: ", data($fault/ctx:errorCode))</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con2:reply isError="true" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+            <con2:id>_ActionId-2271501375083820258--4f3a4bce.142d665357a.-7d59</con2:id>
+          </con2:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:pipeline-node name="EmailSender pipeline">
+        <con:request>EmailSender pipeline_request</con:request>
+        <con:response>EmailSender pipeline_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

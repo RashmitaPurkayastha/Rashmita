@@ -1,0 +1,20 @@
+<project name="ConfigExport">
+	<property file="./build.properties" />
+	<property name="eclipse.home" value="${oracle.home}/oepe_11gR1PS2" />
+	<property name="weblogic.home" value="${oracle.home}/wlserver_10.3" />
+	<target name="export">
+		<java dir="${eclipse.home}"
+		      jar="${eclipse.home}/plugins/org.eclipse.equinox.launcher_1.0.201.R35x_v20090715.jar"
+		      fork="true"
+		      failonerror="true"
+		      maxmemory="512m">
+			<arg line="-data ${workspace.dir}" />
+			<arg line="-application com.bea.alsb.core.ConfigExport" />
+			<arg line="-configProject ${config.project}" />
+			<arg line="-configSubProjects ${config.subprojects}"/>
+			<arg line="-configJar ${basedir}\target\${config.subprojects}_config.jar" />
+			<sysproperty key="weblogic.home" value="${weblogic.home}" />
+			<sysproperty key="osb.home" value="${oracle.home}/Oracle_OSB1" />
+		</java>
+	</target>
+</project>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://i3l.com/finnair/1A/xsd/Process_Info" xmlns:tns="http://i3l.com/finnair/1A/xsd/Process_Info"
+	elementFormDefault="qualified">
+
+	<xs:element name="processInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="serviceName" type="xs:string"
+					minOccurs="1" maxOccurs="1"></xs:element>
+				<xs:element name="connectionType" type="tns:connectionType"
+					minOccurs="0" maxOccurs="1"></xs:element>
+				<xs:element name="releaseFlag" type="tns:releaseFlagType"
+					minOccurs="0" maxOccurs="1"></xs:element>
+			</xs:sequence>
+			</xs:complexType>
+	</xs:element>
+	
+		<xs:simpleType name="releaseFlagType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KEEP"/>
+			<xs:enumeration value="CLOSE" />
+			<xs:enumeration value="LEAVE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="connectionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STATELESS"  />
+			<xs:enumeration value="STATEFUL" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+</xs:schema>

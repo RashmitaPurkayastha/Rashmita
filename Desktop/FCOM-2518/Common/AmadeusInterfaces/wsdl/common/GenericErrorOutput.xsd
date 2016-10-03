@@ -1,0 +1,15 @@
+<!-- edited with XML Spy v4.0.1 U (http://www.xmlspy.com) by AMADEUS SAS (AMADEUS SAS) --><xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="common.xsd"/>
+	<xsd:element name="GenericErrorOutput">
+		<xsd:annotation>
+			<xsd:documentation>Generic response. Send back if errors occured preventing the transaction to execute normally. Could be sent with any request response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="LIST_MSG" maxOccurs="unbounded"/>
+			<xsd:group ref="CommonOutputGroup"/>
+</xsd:sequence>
+<xsd:anyAttribute namespace="##any" processContents="lax"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

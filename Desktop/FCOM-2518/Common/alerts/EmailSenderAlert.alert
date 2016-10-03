@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:aler="http://www.bea.com/wli/monitoring/alert">
+  <aler:description>Alerts when email sending fails due to internal error</aler:description>
+  <aler:AlertToConsole>true</aler:AlertToConsole>
+  <aler:AlertToSNMP>true</aler:AlertToSNMP>
+</xml-fragment>

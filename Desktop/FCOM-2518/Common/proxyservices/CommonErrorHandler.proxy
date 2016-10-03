@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:con="http://www.bea.com/wli/sb/stages/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/logging/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:description>This service is developed to handle all the BEA errors caught in the OSB Middleware for Finnair</ser:description>
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="Text"/>
+      <con:response type="Text"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="true">
+      <ser:aggregationInterval>2880</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:throttling enabled="false">
+      <ser:capacity>0</ser:capacity>
+      <ser:maxQueueLength>0</ser:maxQueueLength>
+      <ser:timeToLive>0</ser:timeToLive>
+    </ser:throttling>
+    <ser:messageTracing enabled="false">
+      <ser:detailsLevel>Terse</ser:detailsLevel>
+      <ser:maxSize>8192</ser:maxSize>
+    </ser:messageTracing>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/0_PointsInfoRetrieve/ErrorText</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific xsi:type="http:HttpEndPointConfiguration" xmlns:http="http://www.bea.com/wli/sb/transports/http">
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con1:pipeline name="CommonErrorHandler Gateway_request" type="request">
+      <con1:stage name="Request Logging">
+        <con1:comment>Logging the Service input request</con1:comment>
+        <con1:context/>
+        <con1:actions>
+          <con2:log>
+            <con:id>_ActionId-1877559362594641278-1aad7727.12a79472ad7.-7f8a</con:id>
+            <con2:logLevel>debug</con2:logLevel>
+            <con2:expr>
+              <con:xqueryText>$body</con:xqueryText>
+            </con2:expr>
+            <con2:message>request logging</con2:message>
+          </con2:log>
+        </con1:actions>
+      </con1:stage>
+      <con:stage name="DVMErrorTransformation" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+        <con:comment>DVM Error Handling</con:comment>
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="ErrorCode" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2583194024952952977--485c1138.129a11834fb.-7edc</con2:id>
+            <con1:expr>
+              <con:xqueryText xmlns:con="http://www.bea.com/wli/sb/stages/config">$body/text()</con:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="dvmTable" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2583194024952952977--485c1138.129a11834fb.-7edb</con2:id>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config"><![CDATA[<tns:dvm name="country-dvm" xmlns:tns="http://xmlns.oracle.com/dvm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <tns:description>ErrorDVM</tns:description>
+  <tns:columns>
+    <tns:column name="MW"/>
+    <tns:column name="Custom"/>
+  </tns:columns>
+  <tns:rows>
+	     <tns:row>
+	<tns:cell>BEA-380002</tns:cell>
+	<tns:cell>11:UNABLE TO PROCESS</tns:cell>            
+
+</tns:row>
+
+	     <tns:row>
+	<tns:cell>158</tns:cell>
+	<tns:cell>11:UNABLE TO PROCESS: 158 -EMAIL-INVALID</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>503</tns:cell>
+	<tns:cell>12:UNABLE TO STORE IN ONLINEDB </tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>61</tns:cell>
+	<tns:cell>9.FBG:NO PROFILE FOUND</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>32</tns:cell>
+	<tns:cell>9.FBG:NO PROFILE FOUND</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>BEA-382505</tns:cell>
+	<tns:cell>477:INVALID FORMAT : INPUT VALIDATION FAILED</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>477</tns:cell>
+	<tns:cell>477:INVALID FORMAT : INPUT VALIDATION FAILED</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>12</tns:cell>
+	<tns:cell>30000:MEMBER - NOT FOUND</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>13</tns:cell>
+	<tns:cell>30003:TRANSACTION - NOT FOUND</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>15</tns:cell>
+	<tns:cell>40002:TOO BIG PAGE SIZE -</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>IDS_ERR_EAI_SA_MAX_PAGE_SIZE</tns:cell>
+	<tns:cell>40002:TOO BIG PAGE SIZE</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>90</tns:cell>
+	<tns:cell>10.EHA:INVALID PROFILE TYPE</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>91</tns:cell>
+	<tns:cell>10.EHA:INVALID PROFILE TYPE</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>45006</tns:cell>
+	<tns:cell>40006:New Membership Card for -  Is Already Requested  and In Process</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>45011</tns:cell>
+	<tns:cell>40011:Couldn't send SMS to MemberNumber -</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>45012</tns:cell>
+	<tns:cell>40012:Feedback with given details already exists</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>45010</tns:cell>
+	<tns:cell>40010:Couldn't send email to Provided MemberNumber -</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>45007</tns:cell>
+	<tns:cell>40007:Mailing Address Update Is Needed for member number -</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>40017</tns:cell>
+	<tns:cell>40017:WEB POINTS EXCHANGE NOT ALLOWED</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>35</tns:cell>
+	<tns:cell>30007:PRODUCT / NOT FOUND</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>38</tns:cell>
+	<tns:cell>30008:PROMOTION NOT FOUND</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>34</tns:cell>
+	<tns:cell>30000:MEMBER - NOT FOUND</tns:cell>            
+
+</tns:row>
+<tns:row>
+	<tns:cell>36</tns:cell>
+	<tns:cell>40004:NOT ENOUGH POINTS FOR REDEMPTION</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+ <tns:cell>40005</tns:cell>
+ <tns:cell>40005:UNABLE TO PROCESS TRANSACTION</tns:cell>            
+</tns:row>
+
+<tns:row>
+ <tns:cell>40003</tns:cell>
+ <tns:cell>40003:ERROR CREATING TRANSACTION</tns:cell>            
+</tns:row>
+
+<tns:row>
+ <tns:cell>40016</tns:cell>
+ <tns:cell>40016:NO ACTIVE TOKEN / FOUND FOR MEMBER -</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>40000</tns:cell>
+	<tns:cell>35000:INVALID START DATE /</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>40001</tns:cell>
+	<tns:cell>35001:INVALID END DATE /</tns:cell>            
+
+</tns:row>
+
+<tns:row>
+	<tns:cell>35004</tns:cell>
+	<tns:cell>35004:Invalid token provided</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>40015</tns:cell>
+	<tns:cell>40015:No Gift available for Member -</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>RetroactivePointProcessing_ClaimMissingPartnerAirlinePoints_40100</tns:cell>
+	<tns:cell>40100:Flight CUSTOMDATA not found</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>CORP101</tns:cell>
+	<tns:cell>9.CGG:NO PROFILE FOUND MATCHING THIS SEARCH CRITERIA</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>40018</tns:cell>
+	<tns:cell>40018:VOUCHER NOT FOUND</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>40019</tns:cell>
+	<tns:cell>40019:MEMBER - NO MATCH</tns:cell>            
+</tns:row>
+
+<tns:row>
+	<tns:cell>40020</tns:cell>
+	<tns:cell>40020:VOUCHER NOT AVAILABLE</tns:cell>            
+</tns:row>
+  </tns:rows>
+</tns:dvm>]]></con3:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:replace varName="body" contents-only="true" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-2583194024952952977--485c1138.129a11834fb.-7eda</con2:id>
+            <con1:location>
+              <con:xpathText xmlns:con="http://www.bea.com/wli/sb/stages/config">./text()</con:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con:xqueryTransform xmlns:con="http://www.bea.com/wli/sb/stages/config">
+                <con:resource ref="Common/transformations/DVMFunction"/>
+                <con:param name="sourceValue">
+                  <con:path>$ErrorCode</con:path>
+                </con:param>
+                <con:param name="sourceColumnName">
+                  <con:path>"MW"</con:path>
+                </con:param>
+                <con:param name="targetColumnName">
+                  <con:path>"Custom"</con:path>
+                </con:param>
+                <con:param name="defaultValue">
+                  <con:path>"11:UNABLE TO PROCESS"</con:path>
+                </con:param>
+                <con:param name="dvmTable">
+                  <con:path>$dvmTable</con:path>
+                </con:param>
+              </con:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+    </con1:pipeline>
+    <con1:pipeline name="CommonErrorHandler Gateway_response" type="response">
+      <con1:stage name="Response Logging">
+        <con1:comment>Logging the Response</con1:comment>
+        <con1:context/>
+        <con1:actions>
+          <con2:log>
+            <con:id>_ActionId-1877559362594641278-1aad7727.12a79472ad7.-7f89</con:id>
+            <con2:logLevel>debug</con2:logLevel>
+            <con2:expr>
+              <con:xqueryText>$body</con:xqueryText>
+            </con2:expr>
+            <con2:message/>
+          </con2:log>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="CommonErrorHandler Gateway">
+        <con:comment>This service would handle all the BEA error caught at the OSB Middleware</con:comment>
+        <con:request>CommonErrorHandler Gateway_request</con:request>
+        <con:response>CommonErrorHandler Gateway_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>
